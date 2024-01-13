@@ -8,7 +8,7 @@ $ch = curl_init();
 curl_setopt($ch, CURLOPT_URL,$_ENV["TARGET_URL"]);
 curl_setopt($ch, CURLOPT_POST, 1);
 curl_setopt($ch, CURLOPT_POSTFIELDS,
-            "token=".$_ENV["AUTH_TOKEN"]."&port=".$_ENV["PORT"]);
+            "token=".$_ENV["AUTH_TOKEN"]."&port=".$_ENV["PROXY_PORT"]);
 
 // In real life you should use something like:
 // curl_setopt($ch, CURLOPT_POSTFIELDS, 
