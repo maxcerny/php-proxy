@@ -1,8 +1,15 @@
 version: '3'
 
+variables:
+  PROXY_PORT: 80
+
 services:
   proxy:
     build: .
     restart: unless-stopped
     ports:
-     - '9999:80'
+     - ${PROXY_PORT}:80
+    environment:
+      - TARGET_URL=${TARGET_URL}
+      - PROXY_PORT=${PROXY_PORT}
+      - AUTH_TOKEN=${AUTH_TOKEN}
