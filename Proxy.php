@@ -1,5 +1,7 @@
 <?php
 
+$TOKEN = $_ENV['AUTH_TOKEN'];
+
 namespace Zounar\PHPProxy;
 
 use CURLFile;
@@ -37,7 +39,7 @@ class Proxy
      * If you copied this file, change the value here in place.
      * @var string
      */
-    public static $AUTH_KEY = $_ENV['AUTH_TOKEN'];
+    public static $AUTH_KEY = $TOKEN;
 
     /**
      * Set this to false to disable authorization. Useful for debugging, not recommended in production.
