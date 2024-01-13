@@ -1,30 +1,22 @@
 <?php
-$targetUrl = getenv('TARGET_URL');
-$proxyPort = getenv('PROXY_PORT');
-$authToken = getenv('AUTH_TOKEN');
+//
+// A very simple PHP example that sends a HTTP POST to a remote site
+//
 
-if ($targetUrl) {
-    $postData = [
-        'port' => $proxyPort,
-        'token' => $authToken
-    ];
+$ch = curl_init();
 
-    $options = [
-        'http' => [
-            'method' => 'POST',
-            'header' => 'Content-type: application/x-www-form-urlencoded',
-            'content' => http_build_query($postData)
-        ]
-    ];
+curl_setopt($ch, CURLOPT_URL,$_ENV["TARGET_URL"]);
+curl_setopt($ch, CURLOPT_POST, 1);
+curl_setopt($ch, CURLOPT_POSTFIELDS,
+            "token=".$_ENV["AUTH_TOKEN"]."&port=".$_ENV["PORT"]);
 
-    $context = stream_context_create($options);
-    $result = file_get_contents($targetUrl, false, $context);
+// In real life you should use something like:
+// curl_setopt($ch, CURLOPT_POSTFIELDS, 
+//          http_build_query(array('postvar1' => 'value1')));
 
-    if ($result === false) {
-        echo 'Failed to send POST request to ' . $targetUrl;
-    } else {
-        echo 'POST request sent successfully to ' . $targetUrl;
-    }
-} else {
-    echo 'TARGET_URL environmental variable is not set.';
-}
+// Receive server response ...
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+$server_output = curl_exec($ch);
+
+curl_close($ch);
